@@ -15,6 +15,8 @@ let rawdata = fs.readFileSync(`${basePath}/build/json/_metadata.json`);
 let data = JSON.parse(rawdata);
 
 data.forEach((item) => {
+  item.attributes.unshift({ "trait_type": "Tribe", "value": "Stone Hammer" });
+
   if (network == NETWORK.sol) {
     item.name = `${namePrefix} #${item.edition}`;
     item.description = description;
@@ -24,6 +26,8 @@ data.forEach((item) => {
     item.description = description;
     item.image = `${baseUri}/${item.edition}.png`;
   }
+ 
+
   fs.writeFileSync(
     `${basePath}/build/json/${item.edition}.json`,
     JSON.stringify(item, null, 2)
